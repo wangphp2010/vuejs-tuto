@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',   //  发布时的根目录 
+    assetsPublicPath: '',   
     proxyTable: {},
 
     // Various Dev Server settings
@@ -41,10 +41,10 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-
+    assetsRoot: path.resolve(__dirname, '../dist'), // 发布目录
+    assetsSubDirectory: 'static', // js 发布的assetsRoot目录下的目录
+    assetsPublicPath: '/',  // static前缀
+     
     /**
      * Source Maps
      */

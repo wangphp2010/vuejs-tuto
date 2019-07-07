@@ -42,7 +42,11 @@ $ npm run build 编译
             mode: 'history', // 去掉链接中的井号 mode: 'history', 默认值是 "hash"
             base： ‘/vuejs-tuto/’ , 
     2 . //config/index.js 修改项目打包为子目录
-        assetsPublicPath:'vuejs-tuto' 
+     build: {
+        assetsRoot: path.resolve(__dirname, '../dist'), // 发布目录
+        assetsSubDirectory: 'static', //  assetsRoot目录下的 js发布目录
+        assetsPublicPath: '',  // static前缀 
+        }
 
 ```
 # 模版
