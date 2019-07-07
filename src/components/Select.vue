@@ -140,7 +140,8 @@ export default {
   z-index: 99;
 }
 
-<!--下拉框显示隐藏动画-- > .slide-down-enter-active,
+<!--下拉框显示隐藏动画-- > 
+.slide-down-enter-active,
 .slide-down-leave {
   transition: all 0.3s ease-in-out;
   transform-origin: 0 top;

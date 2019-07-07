@@ -1,5 +1,5 @@
 
-### githubpage https://yanick2019.github.io/vuejs-tuto/
+### githubpage https://wangphp2010.github.io/vuejs-tuto/
 ### git remote add origin https://github.com/yanick2019/vuejs-tuto.git
 
 ## git push -u origin master 推master分支到github

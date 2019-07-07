@@ -1,28 +1,42 @@
 <template>
   <div class="container">
     <h1>People page</h1>
-    
+
     <div class="row">
       <div class="col-md-3">
-        <div
-          class="input-group mb-1"
-          v-for="hero in heros"
-          v-on:click="getHero(hero)"
-          :class="{'selected': (hero === newHero )}"
-        >
-          <div class="input-group-prepend">
-            <span class="input-group-text">{{hero.id}}</span>
-          </div>
-          <span class="form-control">{{hero.name}}</span>
-        </div>
+        <transition-group name="list" tag="div">
+          <div
+            class="input-group mb-1 list-item"
+            v-for=" hero  in heros "
+            :key="hero.id"
+            @click="getHero(hero)"
+            :class="{'selected': (hero === newHero )}"
+          >
+            <div class="input-group-prepend">
+              <span class="input-group-text">{{hero.id}}</span>
+            </div>
+            <span class="form-control">{{hero.name}}</span>
 
-        <div class="input-group mb-1 alert alert-primary">
+
+   
+            <div class="input-group-append" @click="delHero(hero)">
+              <span class="input-group-text">x</span>
+            </div>
+
+ 
+            
+          </div>
+        </transition-group>
+
+        <div class="input-group mb-1 alert alert-primary">   
           <div class="input-group-prepend">
             <span class="input-group-text">{{newHero.id}}</span>
           </div>
 
           <input type="text" class="form-control" v-model="newHero.name" />
         </div>
+        <button v-on:click="shuffle" class="btn btn-secondary btn-sm">Shuffle</button>
+
         <button v-on:click="addHero" type="button" class="btn btn-secondary btn-sm">{{btnTxt}}</button>
         <button v-on:click="clear" type="button" class="btn btn-secondary btn-sm">clear</button>
       </div>
@@ -33,9 +47,6 @@
         <oSelect @changeOption="onChangeOption" :selectData="selectData"></oSelect>
       </div>
     </div>
-
-
-
   </div>
 </template>
 
@@ -97,6 +108,17 @@ export default {
 
   beforeRouteUpdate(to, from, next) {},
   methods: {
+    delHero(hero) {
+      event.stopPropagation();
+
+      this.heros.map(function(herof, i, heros) {
+        if (herof.id == hero.id) {
+          heros.splice(i, 1);
+        }
+      });
+
+      this.clear();
+    },
     onChangeOption(index) {
       //子组件通过一个事件来触发onChangeOption方法，从而传递一系列参数，这里的index就是传过来的
       this.selectData.defaultIndex = index;
@@ -114,8 +136,12 @@ export default {
       if (this.btnTxt == "Add") {
         if (this.newHero.name) {
           if (this.newHero.name.replace(/\s*/, "")) {
+            let iidd =
+              this.heros.length > 0
+                ? this.heros[this.heros.length - 1].id + 1
+                : 1;
             let newHero = {
-              id: this.heros[this.heros.length - 1].id + 1,
+              id: iidd,
               name: this.newHero.name
             };
 
@@ -130,9 +156,12 @@ export default {
       this.newHero = hero;
     },
     clear() {
-      this.changeBtnTxt();
+      this.btnTxt = "Add";
 
       this.newHero = [];
+    },
+    shuffle: function() {
+      this.heros = _.shuffle(this.heros);
     }
   }
 };
@@ -141,19 +170,35 @@ export default {
 <style scoped >
 .input-group {
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
+ /*  position: static ;  */
 }
 
 .input-group:hover {
   filter: brightness(90%);
-  transform: translateX(2px);
+  transform: translateX(5px); 
 }
 .selected {
   filter: brightness(80%) !important;
-  transform: translateX(-2px) !important;
+  transform: translateX(-5px) !important;  
 }
 .selected .form-control {
   color: #000 !important;
   font-weight: bold;
+}
+
+.list-move {
+	transition: all 1s;
+}
+
+
+.list-enter,
+.list-leave-to {
+opacity: 0;
+  transform: translateX(20px) !important;
+}
+.list-leave-active {
+  position: absolute;
+   
 }
 </style>
