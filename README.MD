@@ -1,4 +1,5 @@
 
+### githubpage https://yanick2019.github.io/vuejs-tuto/
 ### git remote add origin https://github.com/yanick2019/vuejs-tuto.git
 
 ## git push -u origin master 推master分支到github
@@ -45,7 +46,7 @@ $ npm run build 编译
      build: {
         assetsRoot: path.resolve(__dirname, '../dist'), // 发布目录
         assetsSubDirectory: 'static', //  assetsRoot目录下的 js发布目录
-        assetsPublicPath: '',  // static前缀 
+        assetsPublicPath: '/',  
         }
 
 ```
