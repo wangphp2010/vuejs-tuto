@@ -1,6 +1,6 @@
 
 ### githubpage https://wangphp2010.github.io/vuejs-tuto/
-### git remote add origin https://github.com/yanick2019/vuejs-tuto.git
+### git remote add origin https://github.com/wangphp2010/vuejs-tuto.git
 
 ## git push -u origin master 推master分支到github
 ## git push -u origin master -f  强制覆盖已有的分支
