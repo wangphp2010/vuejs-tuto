@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/vuejs-tuto',   //  发布时的根目录 
+    assetsPublicPath: '/',   //  发布时的根目录 
     proxyTable: {},
 
     // Various Dev Server settings
