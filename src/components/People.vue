@@ -1,0 +1,159 @@
+<template>
+  <div class="container">
+    <h1>People page</h1>
+    
+    <div class="row">
+      <div class="col-md-3">
+        <div
+          class="input-group mb-1"
+          v-for="hero in heros"
+          v-on:click="getHero(hero)"
+          :class="{'selected': (hero === newHero )}"
+        >
+          <div class="input-group-prepend">
+            <span class="input-group-text">{{hero.id}}</span>
+          </div>
+          <span class="form-control">{{hero.name}}</span>
+        </div>
+
+        <div class="input-group mb-1 alert alert-primary">
+          <div class="input-group-prepend">
+            <span class="input-group-text">{{newHero.id}}</span>
+          </div>
+
+          <input type="text" class="form-control" v-model="newHero.name" />
+        </div>
+        <button v-on:click="addHero" type="button" class="btn btn-secondary btn-sm">{{btnTxt}}</button>
+        <button v-on:click="clear" type="button" class="btn btn-secondary btn-sm">clear</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <oSelect @changeOption="onChangeOption" :selectData="selectData"></oSelect>
+      </div>
+    </div>
+
+
+
+  </div>
+</template>
+
+<script>
+import oSelect from "@/components/Select.vue"; //引入组件
+
+export default {
+  name: "People",
+  data() {
+    return {
+      heros: [
+        { id: 11, name: "Dr Nice" },
+        { id: 12, name: "Narco" },
+        { id: 13, name: "Bombasto" },
+        { id: 14, name: "Celeritas" },
+        { id: 15, name: "Magneta" },
+        { id: 16, name: "RubberMan" },
+        { id: 17, name: "Dynama" },
+        { id: 18, name: "Dr IQ" },
+        { id: 19, name: "Magma" },
+        { id: 20, name: "Tornado" }
+      ],
+      newHero: {},
+      btnTxt: "Add",
+      selectData: {
+        defaultIndex: 0, //默认选中的是第几个
+        selectStatus: false, // 通过selectStatus来控制下拉框的显示/隐藏
+        selectOptions: [
+          // 下拉框中的数据 name这样的参数，看项目是否有需求，可自行修改
+          {
+            name: "time",
+            context: "Order by time"
+          },
+          {
+            name: "view",
+            context: "Orde by view"
+          },
+          {
+            name: "like",
+            context: "Orde by like"
+          },
+          {
+            name: "reply",
+            context: "Orde by reply"
+          },
+          {
+            name: "reward",
+            context: "Orde by reward"
+          }
+        ]
+      }
+    };
+  },
+  components: {
+    oSelect
+    //注册组件
+  },
+  mounted() {},
+
+  beforeRouteUpdate(to, from, next) {},
+  methods: {
+    onChangeOption(index) {
+      //子组件通过一个事件来触发onChangeOption方法，从而传递一系列参数，这里的index就是传过来的
+      this.selectData.defaultIndex = index;
+      //触发过后，动态改变了需要值
+    },
+
+    changeBtnTxt() {
+      if (this.btnTxt == "Add") {
+        this.btnTxt = "Edit";
+      } else {
+        this.btnTxt = "Add";
+      }
+    },
+    addHero() {
+      if (this.btnTxt == "Add") {
+        if (this.newHero.name) {
+          if (this.newHero.name.replace(/\s*/, "")) {
+            let newHero = {
+              id: this.heros[this.heros.length - 1].id + 1,
+              name: this.newHero.name
+            };
+
+            this.heros.push(newHero);
+            this.newHero = {};
+          }
+        }
+      }
+    },
+    getHero(hero) {
+      this.btnTxt = "Edit";
+      this.newHero = hero;
+    },
+    clear() {
+      this.changeBtnTxt();
+
+      this.newHero = [];
+    }
+  }
+};
+</script>
+
+<style scoped >
+.input-group {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.input-group:hover {
+  filter: brightness(90%);
+  transform: translateX(2px);
+}
+.selected {
+  filter: brightness(80%) !important;
+  transform: translateX(-2px) !important;
+}
+.selected .form-control {
+  color: #000 !important;
+  font-weight: bold;
+}
+</style>
