@@ -13,6 +13,7 @@ document.title = "Design by PHP STUDIO - about page  ";
 export default {
   mounted() {
     console.log(this.$store.state.allProducts );
+      document.title =  "  About page     Design by PHP STUDIO  ";
   },
   computed:
   {

@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-content-center">
       <div class="searchbar">
-        <input class="search_input" type="text" name placeholder="Search..." v-model="motcle"/>
+        <input class="search_input" type="text" name placeholder="Search..." v-model="motcle" />
         <a href="#" class="search_icon">
           <fa :icon="faSearch" />
         </a>
@@ -29,12 +29,15 @@ export default {
       motcle()
       {
           this.bus.$emit( 'getMotcle' , this.motcle ) ;
-
+          this.$store.commit( 'setKw' , this.motcle  );
       }
   },
   methods:{
 
   },
+  mounted(){
+    this.motcle = this.$store.state.kw ; 
+  }
 
 };
 </script>

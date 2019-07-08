@@ -111,6 +111,10 @@ export default {
   },
 
   methods: {
+     
+      
+
+     
     setHeaderTag(r) {
       if (r.name == "home")
         this.headerTag =
@@ -133,9 +137,12 @@ export default {
       url_news = "https://www.bfmtv.com/rss/info/flux-rss/flux-toutes-les-actualites/",
       v = 1
     ) {
+       
       //this.$http.get(url_news,
       this.axios.get(url_news).then(
         response => {
+
+          
           if (1 == v) {
             var promise = parser.parseString(response.data);
 
@@ -146,7 +153,7 @@ export default {
             });
           }
           if (2 == v) {
-            console.log();
+            
             var articles = response.data.articles;
 
             response.data.articles.map(function(val, i) {
@@ -164,10 +171,8 @@ export default {
             this.contents = this.contents.concat(articles);
           }
         },
-        error => {
-          console.log(error.statusText);
-        }
-      );
+         
+      ) .catch(err => {console.log(err)});
     }
   }
 };

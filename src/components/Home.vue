@@ -2,7 +2,7 @@
   <div>
     <h1>home page</h1>
     <div class="col-md-6 offset-3">
-      <SettingSearch v-bind:contents="contents" name="SettingSearch"></SettingSearch>
+      <SettingSearch v-bind:contents="contents" name="SettingSearch"></SettingSearch> 
     </div>
     <section class="hy-layout">
       <div class="row">

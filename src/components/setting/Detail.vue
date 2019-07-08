@@ -3,10 +3,12 @@
     <h1>A LA UNE  </h1>
      <p>Toutes les actualités - BFMTV.COM</p>
      <section class="hy-layout">
-      <div class="row">
-        <div
+      
+        <transition-group name="list" tag="div" class="row"  >
+          <div
           class="col-md-3"  
           v-for="(content, i )  in owncontents  "
+          :key="content.title"
           v-if="i <= owncontents.length && i >= owncontents.length - 24  "
         >
           <router-link v-bind:to=" '/news/' + i " class="nav-link">
@@ -22,7 +24,9 @@
             </ul>
           </router-link>
         </div>
-      </div>
+        </transition-group>
+
+       
     </section>
   </div>
 </template>
@@ -62,7 +66,10 @@ export default {
   
   
   mounted() {
+       
+      
 
+      
     this.bus.$on("getMotcle", params => {
       this.motcle = params;
     });
@@ -113,4 +120,21 @@ pre {
   white-space: pre-wrap;
   max-width: 500px;
 }
+
+.list-move {
+	transition: all 1s;
+}
+
+
+.list-enter,
+.list-leave-to {
+opacity: 0 !important;
+ }
+.list-leave-active {
+  position: absolute;
+   
+}
+
+
+
 </style>

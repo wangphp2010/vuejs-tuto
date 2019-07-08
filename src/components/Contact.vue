@@ -171,6 +171,6 @@ export default {
 
 
   },
-  mounted() {}
+  mounted() { document.title =  "  contact page     Design by PHP STUDIO  ";}
 };
 </script>

@@ -7,8 +7,8 @@
         <p v-html="regContentHtml"></p>
       </div>
     </div>
-
-    <hr />
+    <SettingSearch v-bind:contents="contents" name="SettingSearch"></SettingSearch>
+     <hr />
     <!-------------------------------------------------------------->
     <div v-show="showNews" id="showNews">
       <div class="container">
@@ -16,8 +16,13 @@
       </div>
 
       <section class="hy-layout">
-        <div class="row">
-          <div class="col-md-2" v-for="(content, i )  in contents  " v-if="i <= max && i >= min  ">
+        <transition-group name="list" tag="div" class="row">
+          <div
+            class="col-md-2"
+            v-for="(content, i )  in owncontents  "
+            :key="content.title"
+            v-if="i <= max && i >= min  "
+          >
             <router-link v-bind:to=" '/news/' + i " class="nav-link">
               <ul class="list-unstyled">
                 <li>
@@ -31,7 +36,7 @@
               </ul>
             </router-link>
           </div>
-        </div>
+        </transition-group>
       </section>
 
       <div class="container">
@@ -61,6 +66,7 @@
 
 <script>
 import vPagination from "vue-plain-pagination";
+import SettingSearch from "@/components/setting/Search";
 
 var VueScrollTo = require("vue-scrollto");
 
@@ -85,10 +91,11 @@ var options = {
 //import...
 export default {
   name: "myapp",
-  components: { vPagination },
+  components: { vPagination, SettingSearch: SettingSearch },
 
   data() {
     return {
+      kw: "",
       max: 23,
       min: 0,
 
@@ -123,10 +130,9 @@ export default {
   props: ["contents", "for-child-msg"], //for-child-msg 等价于forChildMsg
 
   watch: {
-  
-    $route(to,from) {
-      this.showNewsDetail(); 
-     },
+    $route(to, from) {
+      this.showNewsDetail();
+    },
     forChildMsg() {
       this.ownChildMsg = this.forChildMsg;
     },
@@ -136,10 +142,27 @@ export default {
     },
 
     contents() {
-       
-       
-        this. init() 
+      this.owncontents = this.contents;
+      this.init();
+    },
+    kw() {
 
+      let motcle = this.kw;
+
+      let list = [];
+
+      this.contents.map(function(val, key) {
+        if (
+          val.title.toLowerCase().indexOf(motcle) != -1 ||
+          val.content.toLowerCase().indexOf(motcle) != -1
+        )
+          list.push(val);
+      });
+      this.owncontents = list;
+      this.setPagenum();
+    },
+    lisStoreKw(kw) {
+      this.kw = kw;
     }
     /* showNews(val, oldVal) {
       if (val) this.showDetail = false;
@@ -149,60 +172,57 @@ export default {
     } */
   },
   methods: {
-     
     regContent(str) {
       str = str.replace(/^[\d\D]+\<\!\-\- contenu article \-\-\>/, "");
       str = str.replace(/\<\!\-\- \/contenu article \-\-\>[\d\D]+$/, "");
       str = str.replace(/\<script\>[\d\D]+?\<\/script\>/, "");
       this.regContentHtml = str;
-      
     },
     getNewsContent(url_news) {
-      this.$http.get(url_news).then(
-        response => {
+      this.$http
+        .get(url_news)
+        .then(response => {
           this.regContent(response.data);
-        },
-        error => {
-          console.log(error, "错误");
-        }
-        
-      );
-    VueScrollTo.scrollTo("#showDetail", 300, options);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+
+      VueScrollTo.scrollTo("#showDetail", 300, options);
       /*  this.axios.post(url_news ).then(response => {
          this.regContent(response.data)
       });
  */
     },
     setHtml(r) {
-      if(this.contents){
-      var neirong = this.contents[r.params.nid];
+      if (this.contents.length) {
+        var neirong = this.contents[r.params.nid];
+        this.html =
+          "<h1>" +
+          neirong.title +
+          "</h1> " +
+          '<img  src="' +
+          neirong.enclosure.url +
+          '"  alt="' +
+          neirong.title +
+          '" style="width:100%" />' +
+          "<hr />" +
+          '  <div class="container text-left">' +
+          ' <div class="bd-example tooltip-demo">' +
+          " <h2>" +
+          neirong.content.toString().replace(/<[\d\D]+?>/g, "") +
+          " </h2><hr />" +
+          " </div>" +
+          "<p>" +
+          neirong.pubDate +
+          "</p>" +
+          "<p>" +
+          neirong.link +
+          "</p>" +
+          "</div>";
 
-      this.html =
-        "<h1>" +
-        neirong.title +
-        "</h1> " +
-        '<img  src="' +
-        neirong.enclosure.url +
-        '"  alt="' +
-        neirong.title +
-        '" style="witdh:100%" />' +
-        "<hr />" +
-        '  <div class="container text-left">' +
-        ' <div class="bd-example tooltip-demo">' +
-        " <h2>" +
-        neirong.content.toString().replace(/<[\d\D]+?>/g, "") +
-        " </h2><hr />" +
-        " </div>" +
-        "<p>" +
-        neirong.pubDate +
-        "</p>" +
-        "<p>" +
-        neirong.link +
-        "</p>" +
-        "</div>";
-
-      // VueScrollTo.scrollTo("#showNews", 300, options);
-      }else console.log(" no this.contents ")
+        // VueScrollTo.scrollTo("#showNews", 300, options);
+      } else console.log(" no this.contents ");
     },
     setShow(nid) {
       if (nid) this.showDetail = true;
@@ -233,29 +253,35 @@ export default {
     },
     showNewsDetail() {
       if (this.$route.params.nid || 0 == this.$route.params.nid) {
-        if (this.contents) {
-           this.getNewsContent(this.contents[this.$route.params.nid].link);
+        if (this.contents.length) {
+          this.getNewsContent(this.contents[this.$route.params.nid].link);
+
           document.title =
             this.contents[this.$route.params.nid].title +
             "  News page     Design by PHP STUDIO  ";
         }
+
         this.setHtml(this.$route);
       }
     },
-    init()
-    {
+    setPagenum() {
+      this.pagenum = Math.ceil(this.owncontents.length / this.pagesize);
+     },
+    init() {
       this.owncontents = this.contents;
-            this.pagenum = Math.ceil(this.contents.length / this.pagesize);
 
-            this.showNewsDetail();
+       this.setPagenum();
 
-              this.currentpage = this.$route.params.page
-                  ? parseInt(this.$route.params.page)
-                  : 1;
-                if(this.$route.params.nid) this.showNewsDetail();
-                if (this.$route.params.page) {
-                  this.setminmax(this.currentpage);
-                }
+      this.showNewsDetail();
+
+      this.currentpage = this.$route.params.page
+        ? parseInt(this.$route.params.page)
+        : 1;
+
+      if (this.$route.params.nid) this.showNewsDetail();
+      if (this.$route.params.page) {
+        this.setminmax(this.currentpage);
+      }
     }
   },
   beforeRouteUpdate(to, from, next) {
@@ -271,25 +297,26 @@ export default {
 
     next();
   },
-  
-  /*  computed: {
-    myFilter: function(value) {
-      return value.toString().replace("Rassemblement", "");
+
+  computed: {
+    lisStoreKw() {
+      return this.$store.state.kw;
     }
-  }, */
+  },
 
   mounted() {
-    this.getNid(this.$route);
-     this. init() 
-     
+    this.kw = this.$store.state.kw;
 
+    this.getNid(this.$route);
+    this.init();
+    document.title = "  News page     Design by PHP STUDIO  ";
   }
 };
 </script>
 
  
 
-<style scoped>
+<style scoped >
 .bluebg {
   background-color: #6b5b95 !important;
   color: #fff;
@@ -319,5 +346,17 @@ export default {
   color: gray;
   /* And disable the pointer events */
   pointer-events: none;
+}
+
+.list-move {
+  transition: all 1s;
+}
+
+.list-enter,
+.list-leave-to {
+  opacity: 0 !important;
+ }
+.list-leave-active {
+  position: absolute;
 }
 </style>

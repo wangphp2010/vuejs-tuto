@@ -42,11 +42,7 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-3">
-        <oSelect @changeOption="onChangeOption" :selectData="selectData"></oSelect>
-      </div>
-    </div>
+   
   </div>
 </template>
 
@@ -71,40 +67,14 @@ export default {
       ],
       newHero: {},
       btnTxt: "Add",
-      selectData: {
-        defaultIndex: 0, //默认选中的是第几个
-        selectStatus: false, // 通过selectStatus来控制下拉框的显示/隐藏
-        selectOptions: [
-          // 下拉框中的数据 name这样的参数，看项目是否有需求，可自行修改
-          {
-            name: "time",
-            context: "Order by time"
-          },
-          {
-            name: "view",
-            context: "Orde by view"
-          },
-          {
-            name: "like",
-            context: "Orde by like"
-          },
-          {
-            name: "reply",
-            context: "Orde by reply"
-          },
-          {
-            name: "reward",
-            context: "Orde by reward"
-          }
-        ]
-      }
+      
     };
   },
   components: {
     oSelect
     //注册组件
   },
-  mounted() {},
+  mounted() { document.title =  "  People page     Design by PHP STUDIO  ";},
 
   beforeRouteUpdate(to, from, next) {},
   methods: {
