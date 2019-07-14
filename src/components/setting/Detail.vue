@@ -53,14 +53,22 @@ export default {
     },
     motcle() {
       var motcle = this.motcle.toLowerCase()
-      var list = []
-      
+      var list = [] ;
+      list = this.contents ;
+       /*
+       
        this.contents.map(function(val, key) {
         if( val.title.toLowerCase().indexOf( motcle ) != -1 || val.content.toLowerCase().indexOf( motcle ) != -1 )   list.push(val);
         
        });
-       this.owncontents = list  
+       this.owncontents = list  */
+       
+       list = list.filter(function(item){
+                if(item.title.toLowerCase().indexOf(motcle ) !== -1 || item.content.toLowerCase().indexOf(motcle ) !== -1 ){
+                    return item;
+                }
  
+        
     }
   },
   
