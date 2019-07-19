@@ -1,12 +1,11 @@
 <template>
   <div>
-    <h1>A LA UNE  </h1>
-     <p>Toutes les actualités - BFMTV.COM</p>
-     <section class="hy-layout">
-      
-        <transition-group name="list" tag="div" class="row"  >
-          <div
-          class="col-md-3"  
+    <h1>A LA UNE</h1>
+    <p>Toutes les actualités - BFMTV.COM</p>
+    <section class="hy-layout">
+      <transition-group name="list" tag="div" class="row">
+        <div
+          class="col-md-3"
           v-for="(content, i )  in owncontents  "
           :key="content.title"
           v-if="i <= owncontents.length && i >= owncontents.length - 24  "
@@ -24,9 +23,7 @@
             </ul>
           </router-link>
         </div>
-        </transition-group>
-
-       
+      </transition-group>
     </section>
   </div>
 </template>
@@ -37,47 +34,38 @@ export default {
   data() {
     return {
       motcle: "",
-       owncontents :  this.contents ,
-  
-     };
+      owncontents: this.contents
+    };
   },
   props: ["contents"], //声明一个自定义的属性
-  
-  watch: {
-      
-    contents(){
 
-        this.owncontents = this.contents ;
-        
-         
+  watch: {
+    contents() {
+      this.owncontents = this.contents;
     },
     motcle() {
-      var motcle = this.motcle.toLowerCase()
-      var list = [] ;
-      list = this.contents ;
-       /*
-       
-       this.contents.map(function(val, key) {
+      var motcle = this.motcle.toLowerCase();
+      var list = [];
+      list = this.contents;
+      /*
+        this.contents.map(function(val, key) {
         if( val.title.toLowerCase().indexOf( motcle ) != -1 || val.content.toLowerCase().indexOf( motcle ) != -1 )   list.push(val);
         
        });
        this.owncontents = list  */
-       
-       list = list.filter(function(item){
-                if(item.title.toLowerCase().indexOf(motcle ) !== -1 || item.content.toLowerCase().indexOf(motcle ) !== -1 ){
-                    return item;
-                }
- 
-        
+
+      list.filter(function(item) {
+        if (
+          item.title.toLowerCase().indexOf(motcle) !== -1 ||
+          item.content.toLowerCase().indexOf(motcle) !== -1
+        ) {
+          return item;
+        }
+      });
     }
   },
-  
-  
-  mounted() {
-       
-      
 
-      
+  mounted() {
     this.bus.$on("getMotcle", params => {
       this.motcle = params;
     });
@@ -123,6 +111,8 @@ export default {
   }
 };
 </script>
+
+
 <style scoped>
 pre {
   white-space: pre-wrap;
@@ -130,19 +120,14 @@ pre {
 }
 
 .list-move {
-	transition: all 1s;
+  transition: all 1s;
 }
-
 
 .list-enter,
 .list-leave-to {
-opacity: 0 !important;
- }
+  opacity: 0 !important;
+}
 .list-leave-active {
   position: absolute;
-   
 }
-
-
-
 </style>

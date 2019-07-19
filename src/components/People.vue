@@ -17,32 +17,31 @@
             </div>
             <span class="form-control">{{hero.name}}</span>
 
-
-   
             <div class="input-group-append" @click="delHero(hero)">
               <span class="input-group-text">x</span>
             </div>
-
- 
-            
           </div>
         </transition-group>
 
-        <div class="input-group mb-1 alert alert-primary">   
+        <div class="input-group mb-1 alert alert-primary">
           <div class="input-group-prepend">
             <span class="input-group-text">{{newHero.id}}</span>
           </div>
 
           <input type="text" class="form-control" v-model="newHero.name" />
         </div>
+ 
+        <transition name="fade">
+          <div class="alert alert-danger" v-if="seen">Type people's name</div>
+        </transition>
+
+        <button v-on:click="sort" class="btn btn-secondary btn-sm">Sort</button>
         <button v-on:click="shuffle" class="btn btn-secondary btn-sm">Shuffle</button>
 
         <button v-on:click="addHero" type="button" class="btn btn-secondary btn-sm">{{btnTxt}}</button>
         <button v-on:click="clear" type="button" class="btn btn-secondary btn-sm">clear</button>
       </div>
     </div>
-
-   
   </div>
 </template>
 
@@ -67,24 +66,57 @@ export default {
       ],
       newHero: {},
       btnTxt: "Add",
-      
+      maxId: 0,
+      asc: true,
+      seen: false
     };
   },
   components: {
     oSelect
     //注册组件
   },
-  mounted() { document.title =  "  People page     Design by PHP STUDIO  ";},
+  computed: {
+    newHeroname() {
+　　　　return this.newHero.name ;
+　　}
+  },
+  watch:{
+    newHeroname(newValue, oldValue) {
+　　　　  
+      if (this.newHero.name != "") this.seen = false;
+　　}
+  },
+ 
+
+   
+  mounted() {
+    document.title = "  People page     Design by PHP STUDIO  ";
+    this.maxId = this.getMaxId();
+  },
 
   beforeRouteUpdate(to, from, next) {},
   methods: {
+    getMaxId() {
+      let heros = this.heros;
+      let maxId = 0;
+      if (heros.length > 0) {
+        heros.filter(function(hero) {
+          if (hero.id > maxId) maxId = hero.id;
+        });
+      }
+
+      return maxId;
+    },
     delHero(hero) {
       event.stopPropagation();
+      let that = this;
 
       this.heros.map(function(herof, i, heros) {
         if (herof.id == hero.id) {
           heros.splice(i, 1);
         }
+
+        if (hero.id == that.maxId) that.maxId = that.getMaxId();
       });
 
       this.clear();
@@ -106,10 +138,8 @@ export default {
       if (this.btnTxt == "Add") {
         if (this.newHero.name) {
           if (this.newHero.name.replace(/\s*/, "")) {
-            let iidd =
-              this.heros.length > 0
-                ? this.heros[this.heros.length - 1].id + 1
-                : 1;
+            this.maxId = this.maxId + 1;
+            let iidd = this.maxId;
             let newHero = {
               id: iidd,
               name: this.newHero.name
@@ -118,7 +148,15 @@ export default {
             this.heros.push(newHero);
             this.newHero = {};
           }
+        } else {
+          this.seen = true;
+          return false;
         }
+      }
+      else
+      {
+        this.clear();
+
       }
     },
     getHero(hero) {
@@ -131,7 +169,17 @@ export default {
       this.newHero = [];
     },
     shuffle: function() {
+      this.asc = false;
       this.heros = _.shuffle(this.heros);
+    },
+    sort() {
+      if (!this.asc) {
+        this.heros = _.orderBy(this.heros, ["id"], ["asc"]);
+        this.asc = true;
+      } else {
+        this.heros = _.orderBy(this.heros, ["id"], ["desc"]);
+        this.asc = false;
+      }
     }
   }
 };
@@ -141,16 +189,16 @@ export default {
 .input-group {
   cursor: pointer;
   transition: all 0.3s;
- /*  position: static ;  */
+  /*  position: static ;  */
 }
 
 .input-group:hover {
   filter: brightness(90%);
-  transform: translateX(5px); 
+  transform: translateX(5px);
 }
 .selected {
   filter: brightness(80%) !important;
-  transform: translateX(-5px) !important;  
+  transform: translateX(-5px) !important;
 }
 .selected .form-control {
   color: #000 !important;
@@ -158,17 +206,23 @@ export default {
 }
 
 .list-move {
-	transition: all 1s;
+  transition: all 1s;
 }
-
 
 .list-enter,
 .list-leave-to {
-opacity: 0;
+  opacity: 0;
   transform: translateX(20px) !important;
 }
 .list-leave-active {
   position: absolute;
-   
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
