@@ -174,6 +174,7 @@ export default {
 
   mounted() {
     this.getDataTxt();
+     document.title =  "   world gdp ranking  page     Design by PHP STUDIO  ";
   }
 };
 </script>
