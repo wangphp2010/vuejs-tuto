@@ -13,6 +13,7 @@
       <router-view name="About" v-bind:contents="contents"></router-view>
       <router-view name="People"></router-view>
       <router-view name="Contact"></router-view>
+      <router-view name="Page404"></router-view>
 
       <!--  <router-view v-bind:contents="contents" /> -->
 

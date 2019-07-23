@@ -3,7 +3,7 @@
     <h1>People page</h1>
 
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 offset-4">
         <transition-group name="list" tag="div">
           <div
             class="input-group mb-1 list-item"

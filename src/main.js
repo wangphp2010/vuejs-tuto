@@ -22,6 +22,7 @@ export const store =  new Vuex.Store({
     allProducts: [1,2,3,4,5],
     count:0,
     kw : '' ,
+    status : 1 ,
   },
   mutations: {
     increment (state) {
@@ -34,7 +35,10 @@ export const store =  new Vuex.Store({
      ,
     setProducts (state, products) {
       state.allProducts = products
-    }
+    },
+    setStatus (state ) {
+      state.status++ ; 
+    },
   }
 })
 /**
@@ -42,7 +46,7 @@ export const store =  new Vuex.Store({
  *   dispatch =>actions,用来触发异步操作的方法。 比如向后台发送请求获取数据
  *
  * this.$store.state.kw ;
- * 只能通过定义mutaions 里的方法 再调用 this.$store.commit('setKw', 'okok'); 再能修改 allProducts 等的值
+ * 只能通过定义mutaions 里的方法 再调用 this.$store.commit('setKw', 'okok'); 才能修改 allProducts 等的值
  * https://juejin.im/entry/5af3ab7b6fb9a07a9a10dd53 使用方法
  */
 

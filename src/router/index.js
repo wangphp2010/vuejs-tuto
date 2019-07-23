@@ -8,10 +8,12 @@ import News from '@/components/News'
 import Player from '@/components/Player'
 import People from '@/components/People'
 import Home from '@/components/Home'
+import Gdp from '@/components/gdp'
+import Page404 from '@/components/Page404'
 import PlayerProfile from '@/components/Player/Profile'
 import PlayerStats from '@/components/Player/Stats'
 import SettingHeader from '@/components/setting/Header'
-
+ 
 /* import SettingDetail from '@/components/setting/Detail'
 
 import SettingSidebar from '@/components/setting/Sidebar'
@@ -34,7 +36,7 @@ export default new Router({
        
          components: {
          Home:Home,
-        myHeader: SettingHeader,
+         myHeader: SettingHeader,
        /*  myDetail: SettingDetail,
 
         SettingSidebar: SettingSidebar,
@@ -44,13 +46,21 @@ export default new Router({
 
 
     },
-   
+     
     {
       path: '/people',
       name: 'People',
        components: {
         myHeader: SettingHeader,
         People: People,
+      }
+    },
+    {
+      path: '/gdp',
+      name: 'Gdp',
+       components: {
+        myHeader: SettingHeader,
+        People: Gdp,
       }
     },
     {
@@ -126,6 +136,14 @@ export default new Router({
       path: '/myapp',
       name: 'app',
       component: myapp
+    },
+    {
+      path: '*',
+      name: 'page404',
+      components: {
+        myHeader: SettingHeader,
+        Page404: Page404,
+      },
     },
   ]
 })
