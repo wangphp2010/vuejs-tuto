@@ -22,15 +22,15 @@
             </li>
           
 
-            
+            <li class="nav-item">
+              <router-link to="/gdp" class="nav-link">World GDP</router-link>
+            </li>
           
             <li class="nav-item">
               <router-link to="/people" class="nav-link">People</router-link>
             </li>
 
-            <li class="nav-item">
-              <router-link to="/gdp" class="nav-link">Gdp</router-link>
-            </li>
+            
 
               <li class="nav-item">
               <router-link to="/about" class="nav-link">About</router-link>

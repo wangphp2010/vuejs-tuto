@@ -26,7 +26,7 @@ import User from '@/components/User'
 Vue.use(Router)
 
 export default new Router({
- mode: 'history', // 去掉链接中的井号 mode: 'history', 默认值是 "hash"
+ //mode: 'history', // 去掉链接中的井号 mode: 'history', 默认值是 "hash"
  base: "/vuejs-tuto",  // 根路由 设置 默认 "" 或/
 
   routes: [
