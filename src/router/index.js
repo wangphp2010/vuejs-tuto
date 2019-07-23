@@ -13,6 +13,7 @@ import Page404 from '@/components/Page404'
 import PlayerProfile from '@/components/Player/Profile'
 import PlayerStats from '@/components/Player/Stats'
 import SettingHeader from '@/components/setting/Header'
+
  
 /* import SettingDetail from '@/components/setting/Detail'
 

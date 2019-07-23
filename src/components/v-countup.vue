@@ -28,47 +28,55 @@ export default {
       second: 2,
       showsv : 0 ,
       imgs:{
-        "United States": {'img': require('../assets/flags-mini/us.png'), 'c': "#1a1aff"},
-        "Japan": {'img': require('../assets/flags-mini/jp.png'), 'c': "#ff3333"},
-        "China": {'img': require('../assets/flags-mini/cn.png'), 'c': "#e60000"},
-        "Germany": {'img': require('../assets/flags-mini/de.png'), 'c': "#330d00"},
-        "France": {'img': require('../assets/flags-mini/fr.png'), 'c': "#000099"},
-        "United Kingdom": {'img': require('../assets/flags-mini/gb.png'), 'c': "#ff1a66"},
-        "India": {'img': require('../assets/flags-mini/in.png'), 'c': "#004d00"},
-        "Canada": {'img': require('../assets/flags-mini/ca.png'), 'c': "#cc3300"},
-        "Italy": {'img': require('../assets/flags-mini/it.png'), 'c': "#009900"},
-        "Brazil": {'img': require('../assets/flags-mini/br.png'), 'c': "#009933"},
-         "Spain": {'img': require('../assets/flags-mini/es.png'), 'c': " #ff3300"},
-         "Australia": {'img': require('../assets/flags-mini/au.png'), 'c': "#29a329"},
-      "Netherlands": {'img': require('../assets/flags-mini/nl.png'), 'c': "#6666ff"},
-      "Korea, Rep.": {'img': require('../assets/flags-mini/kr.png'), 'c': "#1a1aff"},
-      "Russian Federation": {'img': require('../assets/flags-mini/ru.png'), 'c': "#008fb3"},
-      "Mexico": {'img': require('../assets/flags-mini/mx.png'), 'c': "#008060"},
+
+        "United States": {'img': 'static/flags-mini/us.png', 'c': "#1a1aff"},
+        "Japan": {'img': 'static/flags-mini/jp.png', 'c': "#b30086"},
+        "China": {'img': 'static/flags-mini/cn.png', 'c': "#e60000"},
+        "Germany": {'img': 'static/flags-mini/de.png', 'c': "#330d00"},
+        "France": {'img': 'static/flags-mini/fr.png', 'c': "#000099"},
+        "United Kingdom": {'img': 'static/flags-mini/gb.png', 'c': "#b3b3e6"},
+        "India": {'img': 'static/flags-mini/in.png', 'c': "#004d00"},
+        "Canada": {'img': 'static/flags-mini/ca.png', 'c': "#6600cc"},
+        "Italy": {'img': 'static/flags-mini/it.png', 'c': "#009900"},
+        "Brazil": {'img': 'static/flags-mini/br.png', 'c': "#009933"},
+         "Spain": {'img': 'static/flags-mini/es.png', 'c': " #bbff99"},
+         "Australia": {'img': 'static/flags-mini/au.png', 'c': "#29a329"},
+      "Netherlands": {'img': 'static/flags-mini/nl.png', 'c': "#6666ff"},
+      "Korea, Rep.": {'img': 'static/flags-mini/kr.png', 'c': "#1a1aff"},
+      "Russian Federation": {'img': 'static/flags-mini/ru.png', 'c': "#008fb3"},
+      "Mexico": {'img': 'static/flags-mini/mx.png', 'c': "#008060"},
      
-     "Sweden": {'img': require('../assets/flags-mini/se.png'), 'c': "#006699"},
+     "Sweden": {'img': 'static/flags-mini/se.png', 'c': "#006699"},
             
-       "Switzerland": {'img': require('../assets/flags-mini/ch.png'), 'c': "#ff4d4d"},
-       "Belgium": {'img': require('../assets/flags-mini/be.png'), 'c': "#4d4dff"},
-       "Austria": {'img': require('../assets/flags-mini/at.png'), 'c': "#ff6666"},
-       "Denmark": {'img': require('../assets/flags-mini/dk.png'), 'c': "#ffb3b3"},
-       "Turkey": {'img': require('../assets/flags-mini/tr.png'), 'c': "#ff6666"},
-       "Indonesia": {'img': require('../assets/flags-mini/id.png'), 'c': "#cc99ff"},
-        "South Africa": {'img': require('../assets/flags-mini/za.png'), 'c': "#000099"},
-        "Saudi Arabia": {'img': require('../assets/flags-mini/sa.png'), 'c': "#66ffcc"},
-        "Venezuela, RB": {'img': require('../assets/flags-mini/ve.png'), 'c': "#0086b3"},
-        "Argentina": {'img': require('../assets/flags-mini/ar.png'), 'c': "#80ccff"},
-        "Iraq": {'img': require('../assets/flags-mini/ir.png'), 'c': "#66ffbb"},
-       /*  
+       "Switzerland": {'img': 'static/flags-mini/ch.png', 'c': "#ff4d4d"},
+       "Belgium": {'img': 'static/flags-mini/be.png', 'c': "#4d4dff"},
+       "Austria": {'img': 'static/flags-mini/at.png', 'c': "#ff6666"},
+       "Denmark": {'img': 'static/flags-mini/dk.png', 'c': "#ffb3b3"},
+       "Turkey": {'img': 'static/flags-mini/tr.png', 'c': "#ff6666"},
+       "Indonesia": {'img': 'static/flags-mini/id.png', 'c': "#cc99ff"},
+        "South Africa": {'img': 'static/flags-mini/za.png', 'c': "#000099"},
+        "Saudi Arabia": {'img': 'static/flags-mini/sa.png', 'c': "#66ffcc"},
+        "Venezuela, RB": {'img': 'static/flags-mini/ve.png', 'c': "#0086b3"},
+        "Argentina": {'img': 'static/flags-mini/ar.png', 'c': "#80ccff"},
+        "Iraq": {'img': 'static/flags-mini/ir.png', 'c': "#66ffbb"},
+        "Iran, Islamic Rep.": {'img': 'static/flags-mini/ir.png', 'c': "#66ffbb"},
        
-       
+       "Philippines": {'img':  'static/flags-mini/ph.png' , 'c': "#fc6666"},
+       "Iran": {'img':  'static/flags-mini/ir.png' , 'c': "#118060"},
+       "Nigeria": {'img':  'static/flags-mini/ng.png' , 'c': "#1a1acc"},
+
+
+
+
+   /*  
+   另一种方法
+   require('../assets/flags-mini/us.png') 对应src/assets/flags-mini/us.png
+   
+   "United States": {'img': require('../assets/flags-mini/us.png'), 'c': "#1a1aff"},
+        "Japan": {'img': require('../assets/flags-mini/jp.png'), 'c': "#ff3333"},
+        */
        
       
-       
-       
-        
-         
-          "": {'img': require('../assets/flags-mini/.png'), 'c': ""},
-       */
 
 
       },
@@ -83,7 +91,7 @@ export default {
     {
       var w ;
       var max = this.maxGdp ; 
-      var d = 600 ;
+      var d = 660 ;
        
 
       if(this.imgs[this.country])
@@ -100,6 +108,8 @@ export default {
       }
       if( parseInt(w)<=1)w=1;
 
+      if( 1 == this.iidd && parseInt(this.year) > 1960 ) w = d ;
+
       return "width:" + w  + "px;background-color:"+ this.c  +";min-width:2px;border-radius:2px; " 
     }
   },
@@ -114,15 +124,15 @@ export default {
       },
        
   },
-  props: ["start-value", "end-value" , "country" , "run" ,"maxGdp"], //for-child-msg 等价于forChildMsg
+  props: ["start-value", "end-value" , "country" , "run" ,"maxGdp","iidd" ,"year"], //for-child-msg 等价于forChildMsg
 
   methods: {
     addGG(d) {
 
      if(this.sv< this.ev)
-      this.sv += d;
+        this.sv += d;
       else 
-      this.sv -= d;
+        this.sv -= d;
        
       //  var timerId;
       if (   Math.abs(this.ev - this.sv) > d) {
