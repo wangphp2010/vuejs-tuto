@@ -352,7 +352,7 @@ https://bootstrap-vue.js.org
 
 ## Nuxt.js
 Vue的服务器端渲染框架,解决客户端渲染的诸多问题如载入慢,seo
-https://nuxtis.org
+https://nuxtjs.org
 
 
 # myweb

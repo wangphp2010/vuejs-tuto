@@ -20,11 +20,11 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state.allProducts );
+   //  console.log(this.$store.state.allProducts );
       document.title =  "  About page     Design by PHP STUDIO  ";
 
        
-      console.log(this.data);
+      //console.log(this.data);
   },
   computed:
   {

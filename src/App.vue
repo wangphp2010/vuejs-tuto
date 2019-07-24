@@ -2,19 +2,18 @@
   <div id="app">
     <div class="container-fluid">
       <router-view v-bind:headerTag="headerTag" name="myHeader"></router-view>
-
+ 
       
      
 
-      <router-view name="Home" v-bind:contents="contents" ></router-view>
-
-
-      <router-view name="News" v-bind:contents="contents" ></router-view>
-      <router-view name="About" v-bind:contents="contents"></router-view>
-      <router-view name="People"></router-view>
-      <router-view name="Contact"></router-view>
-      <router-view name="Page404"></router-view>
-
+    <transition  :name="transitionName" mode="out-in"  > 
+          <router-view name="Home" v-bind:contents="contents" ></router-view>
+          <router-view name="News" v-bind:contents="contents" ></router-view>
+          <router-view name="About" v-bind:contents="contents"></router-view>
+          <router-view name="People"></router-view>
+          <router-view name="Contact"></router-view>
+          <router-view name="Page404"></router-view>
+    </transition>
       <!--  <router-view v-bind:contents="contents" /> -->
 
       <div class="jumbotron container-fluid footer mt-4">
@@ -89,7 +88,9 @@ export default {
       contents: [],
       obj: [],
       headerTag:
-        "<h1>Vuejs News App</h1>  <div>Actualite de https://www.bfmtv.com/rss/info/flux-rss/flux-toutes-les-actualites/</div>"
+        "<h1>Vuejs News App</h1>  <div>Actualite de https://www.bfmtv.com/rss/info/flux-rss/flux-toutes-les-actualites/</div>",
+       transitionName:'',
+       routes:{ '/': 1 ,'/news':2,'/gdp':3,'/people':4,'/about':5,'/contact':6},  
     };
   },
 
@@ -108,6 +109,16 @@ export default {
   watch: {
     $route(to, from) {
       this.setHeaderTag(to);
+
+        
+     const toDepth =  this.routes[ to.path]
+     const fromDepth = this.routes[from.path ]
+     this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+
+     //this.transitionName += toDepth + ' '+  fromDepth   ;
+
+    // console.log( to.path ,from.path , this.$route   ); 
+     
     }
   },
 
@@ -217,4 +228,28 @@ export default {
   border-radius: 0.3rem;
   padding: 10px;
 }
+
+ 
+ 
+
+.slide-left-enter-active , .slide-right-enter-active  {
+  transition: all .3s ease;
+}
+.slide-left-leave-active  , .slide-right-leave-active{
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-left-enter ,  .slide-right-leave-to
+ {
+  transform: translateX(5000px);
+  opacity: 0; 
+}
+
+.slide-left-leave-to ,  .slide-right-enter
+ {
+  transform: translateX(-5000px);
+  opacity: 0; 
+}
+ 
+
+
 </style>

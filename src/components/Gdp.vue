@@ -6,7 +6,7 @@
         <input type="number" v-model="year" @keyup="keyupYear" />
         <button @click="reset">Reset</button>
         <button @click="stop">Stop</button>
-        <button @click="cc" :disabled="run">Continue</button>
+        <button @click="cc" :disabled='run'  >Continue</button>
 
         <transition-group name="list" tag="div">
           <div class="input-group mt-1" v-for=" data  in dataByYear " :key="data.country">
@@ -16,7 +16,8 @@
                 &nbsp {{data.country}}
               </span>
             </div>
-
+<!--     <v-countup :start-value="data.gdp2" :end-value="data.gdp"></v-countup> 
+ -->
             <Vcountup
               class="form-control"
               :start-value="data.gdp2"
@@ -72,7 +73,7 @@ export default {
       pinlv: 23,
       num: 20,
       second: 2,
-      run: true,
+      run: true ,
       maxGdp: 0
     };
   },

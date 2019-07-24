@@ -16,8 +16,7 @@ import VueAxios from 'vue-axios'
 import Vuex from 'vuex'
  
 Vue.use(Vuex)
-
-export const store =  new Vuex.Store({
+ export const store =  new Vuex.Store({
   state: {
     allProducts: [1,2,3,4,5],
     count:0,
