@@ -90,7 +90,7 @@ export default {
 
    
   mounted() {
-    document.title = "  People page     Design by PHP STUDIO  ";
+    document.title = "  People page Design by PHP STUDIO  ";
     this.maxId = this.getMaxId();
   },
 
