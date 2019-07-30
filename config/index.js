@@ -43,7 +43,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'), // 发布目录
     assetsSubDirectory: 'static', // js 发布的assetsRoot目录下的目录
-    assetsPublicPath: '/',   
+    assetsPublicPath: '',   // static 前面是否加 如 /static
      
     /**
      * Source Maps
