@@ -1,13 +1,14 @@
 <template>
   <div>
-    <table width="100%">
+     <table width="100%">
       <tr>
-         <td :style="stylediv" align="right">&nbsp </td>
+        <td :style="stylediv" align="right">&nbsp</td>
         <td align="left">
           &nbsp
           <img :src="img" style="border-radius:1px;" alt />
           &nbsp {{ showsv }}
         </td>
+        
       </tr>
     </table>
   </div>
@@ -16,13 +17,13 @@
 <script>
 export default {
   name: "v-countup",
-
+  
   data() {
     return {
       sv: this.startValue,
       ev: this.endValue,
       pinlv: 30,
-      second: 2,
+      second:  2  ,
       showsv: 0,
       imgs: {
         "United States": { img: "static/flags-mini/us.png", c: "#1a1aff" },
@@ -70,8 +71,7 @@ export default {
         */
       },
       img: "",
-      c: "#00b3b3",
-       
+      c: "#00b3b3"
     };
   },
   computed: {
@@ -116,7 +116,8 @@ export default {
     "run",
     "maxGdp",
     "iidd",
-    "year"
+    "year",
+    'lastc',
   ], //for-child-msg 等价于forChildMsg
 
   methods: {
@@ -127,26 +128,23 @@ export default {
       if (Math.abs(this.ev - this.sv) > d) {
         setTimeout(() => {
           this.addGG(d);
-        }, parseInt(1000 / this.pinlv)   )
+        }, parseInt(1000 / this.pinlv));
       } else {
         this.sv = this.ev;
 
-        if (this.country == "United States" && this.run)
+        if (this.country == "China" && this.run)
           this.$store.commit("setStatus"); // setStatus+1触发下年gdp
       }
 
-      this.showsv = this.formatNumber(  parseInt(this.sv)) + " $   ";
-     
+      this.showsv = this.formatNumber(parseInt(this.sv)) + " $   ";
     },
     addGdponebyone(ev, sv) {
       var d;
       var dif;
 
-      d = parseInt(   Math.abs(ev - sv) / (this.pinlv * this.second)  ) ;
-      
+      d = parseInt(Math.abs(ev - sv) / (this.pinlv * this.second));
 
       this.addGG(d);
-      
     },
 
     formatNumber(v) {

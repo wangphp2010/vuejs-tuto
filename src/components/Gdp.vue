@@ -6,7 +6,7 @@
         <input type="number" v-model="year" @keyup="keyupYear" />
         <button @click="reset">Reset</button>
         <button @click="stop">Stop</button>
-        <button @click="cc" :disabled='run'  >Continue</button>
+        <button @click="cc" :disabled="run">Continue</button>
 
         <transition-group name="list" tag="div">
           <div class="input-group mt-1" v-for=" data  in dataByYear " :key="data.country">
@@ -16,9 +16,9 @@
                 &nbsp {{data.country}}
               </span>
             </div>
-<!--     <v-countup :start-value="data.gdp2" :end-value="data.gdp"></v-countup> 
- -->
-            <Vcountup
+            <!--     <v-countup :start-value="data.gdp2" :end-value="data.gdp"></v-countup> 
+            -->
+             <Vcountup
               class="form-control"
               :start-value="data.gdp2"
               :end-value="data.gdp"
@@ -26,7 +26,8 @@
               :run="run"
               :maxGdp="maxGdp"
               :iidd="data.id"
-              :year='year'
+              :year="year"
+              :lastc="lastc"
             ></Vcountup>
 
             <!--     <div class="input-group-append" >
@@ -44,7 +45,8 @@
         <iframe
           width="500"
           height="200"
-          src="https://www.youtube.com/embed/K3DG_80swBk?autoplay=1&player.setVolume(3)"
+          :src="youtube"
+          component
           frameborder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
@@ -53,7 +55,7 @@
     </div>
   </div>
 </template>
-
+ 
 <script>
 // 通过setDataByYear 让v-countup.vue 数字增加,当增加完毕让全局属性this.$store.state.status+1 再通过监听 newStatus{this.$store.state.status} 是否有改变 来执行this.cc();
 import Vcountup from "@/components/v-countup.vue"; //引入组件
@@ -73,8 +75,10 @@ export default {
       pinlv: 23,
       num: 20,
       second: 2,
-      run: true ,
-      maxGdp: 0
+      run: true,
+      maxGdp: 0,
+      youtube: "https://www.youtube.com/embed/K3DG_80swBk?start=12&autoplay=1",
+      lastc: ""
     };
   },
   watch: {
@@ -94,7 +98,6 @@ export default {
         if (parseInt(this.year) > 2018) this.year = 2018;
 
         this.setDataByYear(this.year);
-        
       }
     },
     keyupYear() {
@@ -103,32 +106,43 @@ export default {
     },
     getDataTxt() {
       var that = this;
-      $.get("static/data.txt", function(data) {
+      /*  $.get("static/data.txt", function(data) {
         that.datas = JSON.parse(data);
 
         that.setDataByYear(that.year);
-      });
+      }); */
+
+      // vanilla js 
+      var r = new XMLHttpRequest();
+      r.open("GET", "static/data.txt", true);
+      r.onreadystatechange = function() {
+        if (r.readyState != 4 || r.status != 200) return;
+
+        that.datas = JSON.parse(r.responseText);
+
+        that.setDataByYear(that.year);
+      };
+      r.send("banana=yellow");
     },
     sort(data) {
       return _.orderBy(data, ["gdp"], ["desc"]);
     },
     cc() {
       this.run = true;
-      
-      if (this.year < 2018)
-      {
+
+      if (this.year < 2018) {
         this.year = parseInt(this.year) + 1;
         this.yearAC();
+      } else {
+        this.run = false;
       }
-      else{
-        this.run = false ;
-      }
-     
-       
     },
     reset() {
       this.year = 1960;
       this.setDataByYear(this.year);
+      this.youtube =
+        "https://www.youtube.com/embed/K3DG_80swBk?start=12&autoplay=1&v=" +
+        new Date();
       this.run = true;
     },
     stop() {
@@ -157,6 +171,7 @@ export default {
 
       dataByYear = this.sort(dataByYear);
       this.maxGdp = dataByYear[0].gdp;
+      this.lastc = dataByYear[num-1].country ; 
 
       dataByYear.map(function(val, i) {
         if (i < num) {
@@ -175,7 +190,7 @@ export default {
 
   mounted() {
     this.getDataTxt();
-     document.title =  "   world gdp ranking  page     Design by PHP STUDIO  ";
+    document.title = "   world gdp ranking  page     Design by PHP STUDIO  ";
   }
 };
 </script>
