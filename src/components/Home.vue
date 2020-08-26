@@ -32,8 +32,8 @@ export default {
     };
   },
   components: {
-    myDetail: SettingDetail,
-    SettingSidebar: SettingSidebar,
+    myDetail: SettingDetail ,
+    SettingSidebar: SettingSidebar ,
     SettingSearch: SettingSearch
   },
   props: ["contents"]

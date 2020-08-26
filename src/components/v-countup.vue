@@ -1,14 +1,13 @@
 <template>
   <div>
-     <table width="100%">
+    <table width="100%">
       <tr>
-        <td :style="stylediv" align="right">&nbsp</td>
+        <td :style="stylediv" align="right" class="bar">&nbsp</td>
         <td align="left">
           &nbsp
           <img :src="img" style="border-radius:1px;" alt />
           &nbsp {{ showsv }}
         </td>
-        
       </tr>
     </table>
   </div>
@@ -17,13 +16,13 @@
 <script>
 export default {
   name: "v-countup",
-  
+
   data() {
     return {
       sv: this.startValue,
       ev: this.endValue,
       pinlv: 30,
-      second:  2  ,
+      second: 2,
       showsv: 0,
       imgs: {
         "United States": { img: "static/flags-mini/us.png", c: "#1a1aff" },
@@ -71,7 +70,8 @@ export default {
         */
       },
       img: "",
-      c: "#00b3b3"
+      c: "#00b3b3",
+      lastwidth: 0
     };
   },
   computed: {
@@ -89,17 +89,12 @@ export default {
       } else {
         w = d;
       }
+
       if (parseInt(w) <= 1) w = 1;
 
       if (1 == this.iidd && parseInt(this.year) > 1960) w = d;
 
-      return (
-        "width:" +
-        w +
-        "px;background-color:" +
-        this.c +
-        ";min-width:2px;border-radius:2px; "
-      );
+      return "width:" + w + "px;background-color:" + this.c;
     }
   },
   watch: {
@@ -117,7 +112,7 @@ export default {
     "maxGdp",
     "iidd",
     "year",
-    'lastc',
+    "lastc"
   ], //for-child-msg 等价于forChildMsg
 
   methods: {
@@ -180,5 +175,11 @@ export default {
 <style scoped>
 .dd {
   background-color: aqua;
+}
+.bar {
+  width: 0px;
+  min-width: 2px;
+  border-radius: 2px;
+  /* transition:all 2s; */
 }
 </style>
