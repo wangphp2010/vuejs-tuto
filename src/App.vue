@@ -2,24 +2,26 @@
   <div id="app">
     <div class="container-fluid">
       <router-view v-bind:headerTag="headerTag" name="myHeader"></router-view>
- 
-      
-     
 
-    <transition  :name="transitionName" mode="out-in"  > 
-          <router-view name="Home" v-bind:contents="contents" ></router-view>
-          <router-view name="News" v-bind:contents="contents" ></router-view>
-          <router-view name="About" v-bind:contents="contents"></router-view>
-          <router-view name="People"></router-view>
-          <router-view name="Contact"></router-view>
-          <router-view name="Page404"></router-view>
-    </transition>
+      <transition :name="transitionName" mode="out-in">
+        <router-view name="Home" v-bind:contents="contents"></router-view>
+        <router-view name="News" v-bind:contents="contents"></router-view>
+        <router-view name="About" v-bind:contents="contents"></router-view>
+        <router-view name="People"></router-view>
+        <router-view name="Contact"></router-view>
+        <router-view name="Page404"></router-view>
+      </transition>
       <!--  <router-view v-bind:contents="contents" /> -->
 
       <div class="jumbotron container-fluid footer mt-4">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur eveniet repellat saepe optio, maiores ratione beatae tempore voluptatibus quidem, a debitis fugit excepturi consequuntur, aliquam iure eaque! Laborum, sit ipsam.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur
+        eveniet repellat saepe optio, maiores ratione beatae tempore
+        voluptatibus quidem, a debitis fugit excepturi consequuntur, aliquam
+        iure eaque! Laborum, sit ipsam.
         <br />Design by
-        <a class="badge badge-secondary" href="http://php2010.free.fr">PHP STUDIO</a>
+        <a class="badge badge-secondary" href="http://php2010.free.fr"
+          >PHP STUDIO</a
+        >
       </div>
     </div>
 
@@ -89,21 +91,25 @@ export default {
       obj: [],
       headerTag:
         "<h1>Vuejs News App</h1>  <div>Actualite de https://www.bfmtv.com/rss/info/flux-rss/flux-toutes-les-actualites/</div>",
-       transitionName:'',
-       routes:{ '/': 1 ,'/news':2,'/gdp':3,'/people':4,'/about':5,'/contact':6},  
+      transitionName: "",
+      routes: {
+        "/": 1,
+        "/news": 2,
+        "/gdp": 3,
+        "/people": 4,
+        "/about": 5,
+        "/contact": 6,
+      },
     };
   },
 
   mounted() {
     this.setHeaderTag(this.$route);
-     this.getNews();
-    /*
-    this.getNews(
-      "https://newsapi.org/v2/top-headlines?country=us&apiKey=9ba1b6b28a764b8c92958d2399239a40",
-      2
-    );
-    */
     
+     this.getNews( "https://wangphp2010.github.io/vuejs-tuto/api.json" , 2 );
+     
+   // this.getNews(   "https://newsapi.org/v2/top-headlines?country=us&apiKey=9ba1b6b28a764b8c92958d2399239a40",  2  );
+     
   },
   beforeRouteUpdate(to, from, next) {
     // 只在参数变化时触发,路由变化不触发 建议用 watch
@@ -112,23 +118,17 @@ export default {
     $route(to, from) {
       this.setHeaderTag(to);
 
-        
-     const toDepth =  this.routes[ to.path]
-     const fromDepth = this.routes[from.path ]
-     this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+      const toDepth = this.routes[to.path];
+      const fromDepth = this.routes[from.path];
+      this.transitionName = toDepth < fromDepth ? "slide-right" : "slide-left";
 
-     //this.transitionName += toDepth + ' '+  fromDepth   ;
+      //this.transitionName += toDepth + ' '+  fromDepth   ;
 
-    // console.log( to.path ,from.path , this.$route   ); 
-     
-    }
+      // console.log( to.path ,from.path , this.$route   );
+    },
   },
 
   methods: {
-     
-      
-
-     
     setHeaderTag(r) {
       if (r.name == "home")
         this.headerTag =
@@ -146,78 +146,92 @@ export default {
 
       //this.$router.go(-1); // 返回
     },
-
+//"https://newsapi.org/v2/top-headlines?country=us&apiKey=9ba1b6b28a764b8c92958d2399239a40",
     getNews(
-      url_news =  "https://newsapi.org/v2/top-headlines?country=us&apiKey=9ba1b6b28a764b8c92958d2399239a40", 
+      url_news = "https://wangphp2010.github.io/vuejs-tuto/api.json"  ,
       v = 1
     ) {
 
-       
-   
- 
-
-this.axios({
-      method: 'GET',
-      url:  "https://newsapi.org/v2/top-headlines" ,
-      params: {
-        country: 'us',
-        apiKey: '9ba1b6b28a764b8c92958d2399239a40',
-        
-      },
-       
-    })
-      .then(response => {
-         console.log(response, "success");   // 成功的返回  
-         
+      /*
+      this.axios({
+        method: "GET",
+        url: "https://wangphp2010.github.io/vuejs-tuto/api.json"  ,
+        params: {
+          country: "us",
+          apiKey: "9ba1b6b28a764b8c92958d2399239a40",
+        },
       })
-      .catch(error => console.log(error, "error")); // 失败的返回
+        .then((response) => {
+          // 成功的返回
+          var data = response.data ; 
+          if (1 == v) {
+              this.getResV1( data)
+          }
+          if (2 == v) {
+              var vv = JSON.parse( data);
+              console.log(vv)
+              // this. getResV2(data)
+          }
 
- 
-
-       //https://www.bfmtv.com/rss/info/flux-rss/flux-toutes-les-actualites/
+        })
+        .catch((error) => console.log(error, "error")); // 失败的返回
+*/
+      //https://www.bfmtv.com/rss/info/flux-rss/flux-toutes-les-actualites/
       //this.$http.get(url_news,
-      /*this.axios.get(url_news).then(
+      this.axios.get(url_news).then(
         response => {
 
-          
+             
           if (1 == v) {
-            var promise = parser.parseString(response.data);
-
-            promise.then(obj => {
-              this.obj = obj;
-              //this.contents.push( obj.items ) ;
-              this.contents = this.contents.concat(obj.items);
-            });
+               
+              this.getResV1( response.data ) 
           }
           if (2 == v) {
             
-            var articles = response.data.articles;
 
-            response.data.articles.map(function(val, i) {
-              articles[i].pubDate = val.publishedAt;
+              this.getResV2( response.data ) 
 
-              articles[i].content =
-                val.description + '<img src="' + val.urlToImage + '" >';
-
-              articles[i].link = val.url;
-              articles[i].isApi = 1;
-              articles[i].enclosure = [];
-              articles[i].enclosure.url = val.urlToImage;
-            });
-
-            this.contents = this.contents.concat(articles);
-          }
+           }
         },
          
       ) .catch(err => {console.log(err)});
-      */
-    } ,
+      
+    },
+    getResV1(data) {
+      var promise = parser.parseString(data);
 
-   
+      promise.then((obj) => {
+        this.obj = obj;
+        //this.contents.push( obj.items ) ;
+        this.contents = this.contents.concat(obj.items);
+      });
+    },
+    getResV2(data) {
 
-  }
+     // console.log( typeof data );
+     // console.log(  data.articles  );
+      var articles =  data.articles;
+
+        articles.map(function (val, i) {
+        articles[i].pubDate = val.publishedAt;
+
+        articles[i].content =
+          val.description + '<img src="' + val.urlToImage + '" >';
+
+        articles[i].link = val.url;
+        articles[i].isApi = 1;
+        articles[i].enclosure = [] ;
+        articles[i].enclosure.url = val.urlToImage;
+      });
+
+      this.contents = this.contents.concat(articles);
+    },
+  },
 };
 </script>
+
+
+
 
 <style>
 #app {
@@ -258,27 +272,23 @@ this.axios({
   padding: 10px;
 }
 
- 
- 
-
-.slide-left-enter-active , .slide-right-enter-active  {
-  transition: all .3s ease;
+.slide-left-enter-active,
+.slide-right-enter-active {
+  transition: all 0.3s ease;
 }
-.slide-left-leave-active  , .slide-right-leave-active{
-  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+.slide-left-leave-active,
+.slide-right-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
 }
-.slide-left-enter ,  .slide-right-leave-to
- {
+.slide-left-enter,
+.slide-right-leave-to {
   transform: translateX(5000px);
-  opacity: 0; 
+  opacity: 0;
 }
 
-.slide-left-leave-to ,  .slide-right-enter
- {
+.slide-left-leave-to,
+.slide-right-enter {
   transform: translateX(-5000px);
-  opacity: 0; 
+  opacity: 0;
 }
- 
-
-
 </style>
