@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+
+    <title>表单复选框</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>表单复选框</h1>
+     
+      <input type="checkbox" value='生化危机' v-model="checkboxGames" id="生化危机"> <label for="生化危机">生化危机</label>
+<br>
+     
+      <input type="checkbox" value='打飞机' v-model="checkboxGames" id="打飞机"> <label for="打飞机">打飞机</label>
+      <br>
+      
+      <input type="checkbox" value='马里奥' v-model="checkboxGames" id="马里奥"><label for="马里奥">马里奥</label>
+
+        <hr>
+
+        <p>
+
+        the games you choose {{ checkboxGames }}
+        </p>
+    </div>
+
+      <script>
+      
+        var App = new Vue({
+
+          el:'#app',
+          data:{
+            checkboxGames:[]
+          }
+
+        });
+      
+      </script>
+
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"></script>
+
+    <title>表单单选框</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>表单复选框</h1>
+     
+        <h3>选择性别</h3>
+        <input type="radio" name="" id="male" v-model="choosesex" value="male">male
+        <input type="radio" name="" id="female" v-model="choosesex" value="female">female
+     
+      
+        <h3>选择爱好</h3>
+        <input type="radio" name="" id="game" value="game" v-model="chooselobby" >game
+        <input type="radio" name="" id="it" value="it"   v-model="chooselobby" > it
+ 
+        <hr>
+
+        <p>
+
+          you choose choosesex <br> {{ choosesex }} , <br>chooselobby {{ chooselobby }}
+        </p> 
+    </div>
+
+      <script>
+      
+        var App = new Vue({
+
+          el:'#app',
+          data:{
+            choosesex:'',
+            chooselobby:''
+          }
+
+        });
+      
+      </script>
+
+  </body>
+</html>
