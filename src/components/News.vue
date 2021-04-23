@@ -12,7 +12,7 @@
     <!-------------------------------------------------------------->
     <div v-show="showNews" id="showNews">
       <div class="container">
-        <h1>Toutes les actualités-</h1>
+        <h1>Toutes les actualités</h1>
       </div>
 
       <section class="hy-layout">

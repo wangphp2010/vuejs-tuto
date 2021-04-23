@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>A LA UNE</h1>
-    <p>Toutes les actualités -- BFMTV.COM</p>
+    <p>Toutes les actualités - BFMTV.COM</p>
     <section class="hy-layout">
       <transition-group name="list" tag="div" class="row">
         <div
