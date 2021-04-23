@@ -96,12 +96,14 @@ export default {
 
   mounted() {
     this.setHeaderTag(this.$route);
-   // this.getNews();
-
+     this.getNews();
+    /*
     this.getNews(
       "https://newsapi.org/v2/top-headlines?country=us&apiKey=9ba1b6b28a764b8c92958d2399239a40",
       2
     );
+    */
+    
   },
   beforeRouteUpdate(to, from, next) {
     // 只在参数变化时触发,路由变化不触发 建议用 watch
@@ -149,9 +151,32 @@ export default {
       url_news =  "https://newsapi.org/v2/top-headlines?country=us&apiKey=9ba1b6b28a764b8c92958d2399239a40", 
       v = 1
     ) {
+
+       
+   
+ 
+
+this.axios({
+      method: 'GET',
+      url:  "https://newsapi.org/v2/top-headlines" ,
+      params: {
+        country: 'us',
+        apiKey: '9ba1b6b28a764b8c92958d2399239a40',
+        
+      },
+       
+    })
+      .then(response => {
+         console.log(response, "success");   // 成功的返回  
+         
+      })
+      .catch(error => console.log(error, "error")); // 失败的返回
+
+ 
+
        //https://www.bfmtv.com/rss/info/flux-rss/flux-toutes-les-actualites/
       //this.$http.get(url_news,
-      this.axios.get(url_news).then(
+      /*this.axios.get(url_news).then(
         response => {
 
           
@@ -185,7 +210,11 @@ export default {
         },
          
       ) .catch(err => {console.log(err)});
-    }
+      */
+    } ,
+
+   
+
   }
 };
 </script>

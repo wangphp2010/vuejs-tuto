@@ -4,14 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
   
-
+ 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
- 
+  
 
 //import store from './store'; // 或者用以下代码
+
 
 import Vuex from 'vuex'
  
@@ -60,7 +61,8 @@ Vue.use(Vuex)
 Vue.prototype.bus = new Vue()
  
  
-Vue.use(VueAxios, axios)
+Vue.use(VueAxios ,axios ) //全局注册，使用方法为:this.axios
+
 Vue.filter('trimStr', function (value) {
   if (!value) return ''
       value = value.toString()
