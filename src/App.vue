@@ -146,10 +146,10 @@ export default {
     },
 
     getNews(
-      url_news = "https://www.bfmtv.com/rss/info/flux-rss/flux-toutes-les-actualites/",
+      url_news =  "https://newsapi.org/v2/top-headlines?country=us&apiKey=9ba1b6b28a764b8c92958d2399239a40", 
       v = 1
     ) {
-       
+       //https://www.bfmtv.com/rss/info/flux-rss/flux-toutes-les-actualites/
       //this.$http.get(url_news,
       this.axios.get(url_news).then(
         response => {
